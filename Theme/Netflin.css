@@ -6425,3 +6425,113 @@ body:has(#videoOsdPage:not(.hide)) .actionSheet.actionsheet-not-fullscreen {
     font: 600 1rem/1.2 var(--nf-font);
     transition: border-color var(--nf-dur-1) var(--nf-ease-out), background-color var(--nf-dur-1) var(--nf-ease-out), opacity 0.2s ease-out;
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+* 99. Wally overrides
+* ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Jellyfin gradient colour scheme ─────────────────────────────────────── */
+:root {
+    --wly-purple: #aa5cc3;
+    --wly-blue: #00a4dc;
+    --wly-gradient: linear-gradient(90deg, var(--wly-purple), var(--wly-blue));
+    --nf-red: #00a4dc;
+    --nf-red-hover: #aa5cc3;
+}
+
+:root,
+:root[data-theme] {
+    --jf-palette-primary-mainChannel: 0 164 220;
+    --jf-palette-secondary-mainChannel: 0 164 220;
+}
+
+::selection {
+    background: var(--wly-purple);
+}
+
+.button-submit,
+.button-submit:focus,
+.MuiButton-containedPrimary:not(.MuiAppBar-root *) {
+    background: var(--wly-gradient) !important;
+    color: #fff !important;
+    border: 0;
+}
+
+.button-submit:hover,
+.MuiButton-containedPrimary:not(.MuiAppBar-root *):hover {
+    filter: brightness(1.12);
+}
+
+.MuiLinearProgress-root .MuiLinearProgress-bar:not([class*="barColorSuccess"], [class*="barColorWarning"], [class*="barColorError"], .MuiLinearProgress-bar2, [class*="bar2Buffer"]),
+.itemProgressBarForeground {
+    background: var(--wly-gradient) !important;
+}
+
+.cardIndicators > .playedIndicator,
+.countIndicator {
+    background: var(--wly-gradient) !important;
+}
+
+.MuiTabs-indicator.MuiTabs-indicator {
+    background: var(--wly-gradient);
+}
+
+.emby-tab-button-active {
+    box-shadow: inset 0 -2px 0 var(--wly-blue);
+}
+
+/* ── Original Jellyfin logo ──────────────────────────────────────────────── */
+.MuiAppBar-root :is(.MuiStack-root, .dashboard-appBar) > .MuiButton-root:has(.MuiButton-startIcon > img)::before,
+.MuiDrawer-paper > .MuiBox-root > .MuiList-root:first-child > li:first-child > a::before {
+    content: none !important;
+}
+
+.MuiAppBar-root :is(.MuiStack-root, .dashboard-appBar) > .MuiButton-root:has(.MuiButton-startIcon > img) {
+    font-size: 1.35rem !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    gap: 0.5rem;
+}
+
+.MuiAppBar-root :is(.MuiStack-root, .dashboard-appBar) > .MuiButton-root:has(.MuiButton-startIcon > img) .MuiButton-startIcon {
+    display: inline-flex !important;
+    margin: 0;
+}
+
+.MuiAppBar-root :is(.MuiStack-root, .dashboard-appBar) > .MuiButton-root .MuiButton-startIcon > img {
+    width: auto;
+    height: 2rem;
+}
+
+/* ── Card background on every card, centered bigger titles ───────────────── */
+.card:not(.imageEditorCard, .chapterCard) .cardBox {
+    overflow: hidden;
+    border-radius: var(--nf-radius-lg);
+    background: var(--nf-surface-2);
+}
+
+.card:not(.imageEditorCard, .chapterCard) .cardScalable {
+    border-radius: var(--nf-radius-lg) var(--nf-radius-lg) 0 0;
+}
+
+.card:not(.imageEditorCard, .chapterCard) .cardFooter {
+    padding: 0.15rem 0.5rem 0.65rem;
+    background: none;
+}
+
+.cardFooter,
+.cardText,
+.cardTextCentered,
+.cardTextCentered > .textActionButton {
+    text-align: center !important;
+}
+
+.cardText {
+    font-size: 0.9rem;
+}
+
+.cardText-first {
+    font-size: 1rem;
+    font-weight: 600;
+}
