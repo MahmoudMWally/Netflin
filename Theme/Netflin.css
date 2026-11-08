@@ -6488,7 +6488,7 @@ body:has(#videoOsdPage:not(.hide)) .actionSheet.actionsheet-not-fullscreen {
 }
 
 .MuiAppBar-root :is(.MuiStack-root, .dashboard-appBar) > .MuiButton-root:has(.MuiButton-startIcon > img) {
-    font-size: 1.35rem !important;
+    font-size: 1.15rem !important;
     font-weight: 600 !important;
     color: #fff !important;
     gap: 0.5rem;
@@ -6516,8 +6516,32 @@ body:has(#videoOsdPage:not(.hide)) .actionSheet.actionsheet-not-fullscreen {
 }
 
 .card:not(.imageEditorCard, .chapterCard) .cardFooter {
-    padding: 0.15rem 0.5rem 0.65rem;
+    padding: 0.2rem 0.75rem 0.75rem !important;
     background: none;
+}
+
+.card:not(.imageEditorCard, .chapterCard) .cardText {
+    padding-inline: 0 !important;
+}
+
+/* no image shadow on hover */
+.card:not(.imageEditorCard, .chapterCard):hover .cardScalable {
+    box-shadow: none;
+}
+
+/* cast & crew: keep the hover ring inside the card */
+:is(#castCollapsible, #guestCastCollapsible) .card .cardBox {
+    padding-top: 0.75rem;
+}
+
+:is(#castCollapsible, #guestCastCollapsible) .card .cardScalable {
+    margin: 0 0.75rem 0.5rem;
+}
+
+:is(#castCollapsible, #guestCastCollapsible) .card:hover .cardScalable {
+    box-shadow:
+        0 0 0 3px var(--nf-surface-2),
+        0 0 0 5px #fff;
 }
 
 .cardFooter,
