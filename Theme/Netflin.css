@@ -1,5 +1,6 @@
 /*! Netflin: a Netflix-style theme for Jellyfin (Modern layout) */
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/KartoffelChipss/Jellyfin-Lucide@main/theme/jellyfin-lucide.css"); /* Lucide icons (ISC) */
 
 /* ═══════════════════════════════════════════════════════════════════════
  * 1. Tokens
@@ -6520,28 +6521,30 @@ body:has(#videoOsdPage:not(.hide)) .actionSheet.actionsheet-not-fullscreen {
     background: none;
 }
 
-.card:not(.imageEditorCard, .chapterCard) .cardText {
-    padding-inline: 0 !important;
+/* this Jellyfin has no .cardFooter: the text sits directly in .cardBox */
+.card:not(.imageEditorCard, .chapterCard) .cardBox > .cardText {
+    padding-inline: 0.75rem !important;
 }
 
-/* no image shadow on hover */
+.card:not(.imageEditorCard, .chapterCard) .cardBox > .cardText:last-child {
+    padding-bottom: 0.75rem !important;
+}
+
+/* no image shadow */
+.card:not(.imageEditorCard, .chapterCard) :is(.cardPadder, .cardScalable),
 .card:not(.imageEditorCard, .chapterCard):hover .cardScalable {
-    box-shadow: none;
+    box-shadow: none !important;
 }
 
 /* cast & crew: keep the hover ring inside the card */
-:is(#castCollapsible, #guestCastCollapsible) .card .cardBox {
-    padding-top: 0.75rem;
-}
-
 :is(#castCollapsible, #guestCastCollapsible) .card .cardScalable {
-    margin: 0 0.75rem 0.5rem;
+    margin: 0.75rem 0.75rem 0.5rem;
 }
 
 :is(#castCollapsible, #guestCastCollapsible) .card:hover .cardScalable {
     box-shadow:
         0 0 0 3px var(--nf-surface-2),
-        0 0 0 5px #fff;
+        0 0 0 5px #fff !important;
 }
 
 .cardFooter,
@@ -6559,3 +6562,141 @@ body:has(#videoOsdPage:not(.hide)) .actionSheet.actionsheet-not-fullscreen {
     font-size: 1rem;
     font-weight: 600;
 }
+/* ── Settings pages: centered column ─────────────────────────────────────── */
+.userPreferencesPage :is(.readOnlyContent, form) {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+
+/* ── Header categories: centered, bold, gradient underline ───────────────── */
+@media (min-width: 60em) {
+    .MuiAppBar-root .MuiToolbar-root > .MuiStack-root:has(> .MuiButton-root) {
+        flex: 1 1 auto;
+    }
+
+    .MuiAppBar-root .MuiToolbar-root > .MuiStack-root:has(> .MuiButton-root) + .MuiBox-root {
+        flex: 0 0 auto;
+    }
+
+    .MuiAppBar-root .MuiToolbar-root > .MuiStack-root:has(> .MuiButton-root)::before,
+    .MuiAppBar-root .MuiToolbar-root > .MuiStack-root:has(> .MuiButton-root)::after {
+        content: "";
+        flex: 1 1 0;
+    }
+
+    .MuiAppBar-root .MuiToolbar-root > .MuiStack-root:has(> .MuiButton-root)::before { order: 1; }
+    .MuiAppBar-root .MuiToolbar-root > .MuiStack-root:has(> .MuiButton-root)::after { order: 3; }
+    .MuiAppBar-root .MuiToolbar-root > .MuiStack-root > .MuiButton-root { order: 2; }
+    .MuiAppBar-root .MuiToolbar-root > .MuiStack-root > .MuiButton-root:has(.MuiButton-startIcon > img) { order: 0; }
+}
+
+.MuiAppBar-root .MuiStack-root > .MuiButton-root:not(:has(.MuiButton-startIcon > img)) {
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-inline: 1.25rem;
+    padding: 0.35rem 0;
+}
+
+.MuiAppBar-root .MuiStack-root > .MuiButton-root:not(:has(.MuiButton-startIcon > img)):hover {
+    color: var(--nf-text-dim);
+}
+
+.MuiAppBar-root .MuiStack-root > .MuiButton-textPrimary:not(:has(.MuiButton-startIcon > img)) {
+    background: var(--wly-gradient) center bottom / 100% 3px no-repeat !important;
+}
+
+
+/* ── Lucide icons: gaps in Jellyfin-Lucide + Netflin's own icon glyphs ───── */
+.material-icons.image_search::before { content: "\e53c"; } /* scan-search */
+.material-icons.get_app::before { content: "\e0b6"; }      /* download */
+.material-icons.call_split::before { content: "\e445"; }   /* split */
+
+.sectionTitleContainer > a.clearLink > button.more.raised::after,
+.kefinTweaks-breadcrumb-separator::before,
+#myPreferencesMenuPage a.listItem-border .listItem::after {
+    content: "\e073"; /* chevron-right */
+    font-family: lucide;
+}
+
+.kefinTweaks-popover .kefinTweaks-popover-item.selected::after {
+    content: "\e070"; /* check */
+    font-family: lucide;
+}
+
+
+/* ── Library options bar: theme-matched buttons + Lucide icons ───────────── */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) {
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiButton-root .MuiTypography-root {
+    font: 700 1.75rem/1.2 var(--nf-font);
+    letter-spacing: -0.01em;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiBox-root .MuiChip-root {
+    height: 1.5rem;
+    border-radius: 999px;
+    background: var(--nf-fill-tag);
+    color: var(--nf-text-2);
+    font-weight: 600;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-root {
+    gap: 0.5rem;
+    box-shadow: none;
+}
+
+/* Play All: same white button as the detail page Play */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-contained > .MuiButton-containedPrimary:first-child {
+    height: 2.5rem;
+    padding: 0 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+/* Shuffle, Filter, Sort, View, Prev/Next: round outlined discs */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :is(.MuiButtonGroup-contained > .MuiButton-containedPrimary:not(:first-child), .MuiButtonGroup-text > .MuiButton-root) {
+    box-sizing: border-box;
+    width: 2.5rem;
+    min-width: 0;
+    height: 2.5rem;
+    padding: 0;
+    border: 2px solid var(--nf-outline) !important;
+    border-radius: 50% !important;
+    background: var(--nf-fill-disc) !important;
+    color: var(--nf-text);
+    transition: border-color var(--nf-dur-1) var(--nf-ease-out), background-color var(--nf-dur-1) var(--nf-ease-out);
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :is(.MuiButtonGroup-contained > .MuiButton-containedPrimary:not(:first-child), .MuiButtonGroup-text > .MuiButton-root):not(:disabled):hover {
+    border-color: #fff !important;
+    background: var(--nf-fill-disc-hover) !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-text > .MuiButton-root:disabled {
+    opacity: 0.35;
+}
+
+/* Lucide glyphs in place of the MUI SVG icons */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) svg:is([data-testid="ArrowDropDownIcon"], [data-testid="PlayArrowIcon"], [data-testid="ShuffleIcon"], [data-testid="FilterAltIcon"], [data-testid="SortByAlphaIcon"], [data-testid="ViewModuleIcon"], [data-testid="ViewListIcon"], [data-testid="NavigateBeforeIcon"], [data-testid="NavigateNextIcon"]) {
+    display: none;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg:is([data-testid="ArrowDropDownIcon"], [data-testid="PlayArrowIcon"], [data-testid="ShuffleIcon"], [data-testid="FilterAltIcon"], [data-testid="SortByAlphaIcon"], [data-testid="ViewModuleIcon"], [data-testid="ViewListIcon"], [data-testid="NavigateBeforeIcon"], [data-testid="NavigateNextIcon"]))::before {
+    font: 400 1.15rem/1 lucide;
+    -webkit-font-smoothing: antialiased;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="ArrowDropDownIcon"])::before { content: "\e071"; } /* chevron-down */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="PlayArrowIcon"])::before { content: "\e140"; }     /* play */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="ShuffleIcon"])::before { content: "\e162"; }       /* shuffle */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="FilterAltIcon"])::before { content: "\e0e0"; }     /* funnel */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="SortByAlphaIcon"])::before { content: "\e41a"; }   /* arrow-down-a-z */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="ViewModuleIcon"])::before { content: "\e105"; }    /* layout-grid */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="ViewListIcon"])::before { content: "\e10c"; }      /* list */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="NavigateBeforeIcon"])::before { content: "\e072"; } /* chevron-left */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="NavigateNextIcon"])::before { content: "\e073"; }   /* chevron-right */
