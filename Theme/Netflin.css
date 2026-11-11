@@ -6700,3 +6700,33 @@ body:has(#videoOsdPage:not(.hide)) .actionSheet.actionsheet-not-fullscreen {
 .MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="ViewListIcon"])::before { content: "\e10c"; }      /* list */
 .MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="NavigateBeforeIcon"])::before { content: "\e072"; } /* chevron-left */
 .MuiAppBar-root > .MuiToolbar-root:nth-child(2) :has(> svg[data-testid="NavigateNextIcon"])::before { content: "\e073"; }   /* chevron-right */
+
+
+/* ── Lucide: Netflin restates these with Material codepoints; point them at Lucide ── */
+.material-icons.play_arrow::before { content: "\e140"; }          /* play (player play/pause button) */
+.material-icons.fiber_manual_record::before { content: "\e07a"; } /* circle */
+.material-icons.fiber_smart_record::before { content: "\e349"; }  /* circle-dot */
+
+/* ── Lucide: library cards draw MUI SVG icons; swap them for Lucide glyphs ── */
+.card :is(button, a):has(> svg.MuiSvgIcon-root:is([data-testid="CheckIcon"], [data-testid="FavoriteIcon"], [data-testid="FavoriteBorderIcon"], [data-testid="MoreVertIcon"], [data-testid="MoreHorizIcon"])) > svg {
+    display: none;
+}
+
+.card :is(button, a):has(> svg.MuiSvgIcon-root:is([data-testid="CheckIcon"], [data-testid="FavoriteIcon"], [data-testid="FavoriteBorderIcon"], [data-testid="MoreVertIcon"], [data-testid="MoreHorizIcon"]))::before {
+    font: 400 1.5rem/1 lucide;
+    -webkit-font-smoothing: antialiased;
+}
+
+.card :is(button, a):has(> svg[data-testid="CheckIcon"])::before { content: "\e070"; }                                   /* check */
+.card :is(button, a):has(> svg:is([data-testid="FavoriteIcon"], [data-testid="FavoriteBorderIcon"]))::before { content: "\e0f6"; } /* heart */
+.card :is(button, a):has(> svg[data-testid="MoreVertIcon"])::before { content: "\e0bb"; }                                /* ellipsis-vertical */
+.card :is(button, a):has(> svg[data-testid="MoreHorizIcon"])::before { content: "\e0ba"; }                               /* ellipsis */
+
+/* played = Jellyfin blue (MUI marks it "error" red); favourite keeps its red */
+.card :is(button, a):has(> svg.MuiSvgIcon-colorError[data-testid="CheckIcon"]) {
+    color: var(--wly-blue);
+}
+
+.card :is(button, a):has(> svg.MuiSvgIcon-colorError:is([data-testid="FavoriteIcon"], [data-testid="FavoriteBorderIcon"])) {
+    color: var(--nf-error);
+}
